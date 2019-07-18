@@ -9,18 +9,22 @@ export const bookingResolver = {
       return bookings.map(booking => {
         return transformBooking(booking)
       })
-    } catch(err) {
-      throw err
+    } catch(error) {
+      throw error
     }
   },
   createBookingEvent: async args => {
-    const fetchedEvent = await Event.findOne({ _id: args.eventId })
-    const booking = new Booking({
-      user: '5d2eec6c1ce6ff5068f424a2',
-      event: fetchedEvent
-    })
-    const result = await booking.save()
-    return transformBooking(result)
+    try {
+      const fetchedEvent = await Event.findOne({ _id: args.eventId })
+      const booking = new Booking({
+        user: '5d2eec6c1ce6ff5068f424a2',
+        event: fetchedEvent
+      })
+      const result = await booking.save()
+      return transformBooking(result)
+    } catch (error) {
+      throw error
+    }
   },
   cancelBooking: async args => {
     try{
