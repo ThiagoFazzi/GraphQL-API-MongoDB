@@ -1,0 +1,9 @@
+{
+  "name": "graphql-api-mongodb",
+  "version": "1.0.0",
+  "description": "Project Node.JS and GraphQL connected to MongoDB through Mongoose",
+  "main": "index.js",
+  "repository": "git@github.com:ThiagoFazzi/GraphQL-API-MongoDB.git",
+  "author": "Thiago Fazzi",
+  "license": "MIT"
+}
