@@ -13,7 +13,7 @@ export const bookingResolver = {
       throw err
     }
   },
-  bookEvent: async args => {
+  createBookingEvent: async args => {
     const fetchedEvent = await Event.findOne({ _id: args.eventId })
     const booking = new Booking({
       user: '5d2eec6c1ce6ff5068f424a2',

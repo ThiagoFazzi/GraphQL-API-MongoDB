@@ -24,6 +24,7 @@ export const eventResolver = {
     let createdEvent
     return event.save()
       .then(result => {
+        console.log(result)
         createdEvent = transformEvent(result)
         return User.findById('5d2eec6c1ce6ff5068f424a2')
       })

@@ -45,7 +45,7 @@ export const graphqlSchema =  buildSchema(`
   type RootMutation {
     createEvent(eventInput: EventInput): Event
     createUser(userInput: UserInput): User
-    bookEvent(eventId: ID!): Booking!
+    createBookingEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
   }
 
