@@ -1,6 +1,4 @@
-import mongoose from 'mongoose'
-
-const Schema = mongoose.Schema
+import { Schema, model } from 'mongoose'
 
 const eventSchema = new Schema({
   title: {
@@ -25,4 +23,4 @@ const eventSchema = new Schema({
   }
 })
 
-export default mongoose.model('Event', eventSchema)
+export default model('Event', eventSchema)
