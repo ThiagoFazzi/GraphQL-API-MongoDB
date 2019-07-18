@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import User from '../../models/user'
+import User from '../../mongoose/models/user'
 
 export const authResolver = {
   createUser: args => {

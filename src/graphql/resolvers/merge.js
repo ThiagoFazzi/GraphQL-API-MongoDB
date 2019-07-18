@@ -1,5 +1,5 @@
-import Event from '../../models/event'
-import User from '../../models/user'
+import Event from '../../mongoose/models/event'
+import User from '../../mongoose/models/user'
 import { dateToString } from '../../helpers/date'
 
 const events = async eventIds => {

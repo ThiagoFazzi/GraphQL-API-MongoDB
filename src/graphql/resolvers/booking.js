@@ -1,5 +1,5 @@
-import Booking from '../../models/booking'
-import Event from '../../models/event'
+import Booking from '../../mongoose/models/booking'
+import Event from '../../mongoose/models/event'
 import { transformBooking, transformEvent } from './merge'
 
 export const bookingResolver = {
