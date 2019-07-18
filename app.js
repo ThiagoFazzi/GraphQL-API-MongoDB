@@ -3,7 +3,6 @@ import bodyParser from 'body-parser'
 import graphqlHttp from 'express-graphql'
 import mongoose from 'mongoose'
 
-
 const app = express()
 app.use(bodyParser.json())
 
