@@ -1,8 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import graphqlHttp from 'express-graphql'
-import mongoose from 'mongoose'
 
+import { startConnection } from './src/mongoose/connect'
 import { graphqlSchema } from './src/graphql/schema'
 import { graphqlResolvers } from './src/graphql/resolvers'
 
@@ -18,12 +18,11 @@ app.use(
   })
 )
 
-mongoose.connect(
-  `mongodb+srv://${process.env.MONGO_USER}:${
-    process.env.MONGO_PASSWORD
-  }@cluster0-vpwhf.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
-).then(
-  app.listen(3000)
-).catch(err => {
-  throw err
-})
+startConnection(process.env.MONGO_USER, process.env.MONGO_PASSWORD, process.env.MONGO_DB)
+  .then(_ => {
+    const port = 3000
+    app.listen(port, () => console.log(`GraphQL API listening on port ${port}\nTo access a graphql tool go to http://localhost:${port}/graphql`))
+  })
+  .catch(error => {
+     throw error.message
+  })

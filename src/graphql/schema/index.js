@@ -1,6 +1,6 @@
 import { buildSchema } from 'graphql'
 
-export const graphqlSchema =  buildSchema(`
+const Booking =`
   type Booking {
     _id: ID!
     event: Event!
@@ -8,7 +8,9 @@ export const graphqlSchema =  buildSchema(`
     createdAt: String!
     updatedAt: String!
   }
+`
 
+const Event =`
   type Event {
     _id: ID!
     title: String!
@@ -17,40 +19,55 @@ export const graphqlSchema =  buildSchema(`
     date: String!
     creator: User!
   }
-
-  type User {
-    _id: ID!
-    email: String!
-    password: String
-    createdEvents: [Event!]
-  }
-
   input EventInput {
     title: String!
     description: String!
     price: Float!
     date: String!
   }
+`
 
+const User =`
+  type User {
+    _id: ID!
+    email: String!
+    password: String
+    createdEvents: [Event!]
+  }
   input UserInput {
     email: String!
     password: String!
   }
+`
 
+const RootQuery =`
   type RootQuery {
     events: [Event!]!
     bookings: [Booking!]!
   }
+`
 
+const RootMutation =`
   type RootMutation {
     createEvent(eventInput: EventInput): Event
     createUser(userInput: UserInput): User
     createBookingEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
   }
+`
 
+const Schema =`
   schema {
     query: RootQuery
     mutation: RootMutation
   }
+`
+
+export const graphqlSchema =  buildSchema(`
+  ${Booking}
+  ${Event}
+  ${User}
+  ${RootQuery}
+  ${RootMutation}
+  ${Schema}
 `)
