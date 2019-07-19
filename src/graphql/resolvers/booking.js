@@ -23,7 +23,7 @@ export const bookingResolver = {
     try {
       const fetchedEvent = await Event.findOne({ _id: args.eventId })
       const booking = new Booking({
-        user: '5d2eec6c1ce6ff5068f424a2',
+        user: req.userId,
         event: fetchedEvent
       })
       const result = await booking.save()
