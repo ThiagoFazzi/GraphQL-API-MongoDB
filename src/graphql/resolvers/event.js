@@ -13,7 +13,8 @@ export const eventResolver = {
       throw err
     }
   },
-  createEvent: args => {
+
+  createEvent: async (args, req) => {
     const event = new Event({
       title: args.eventInput.title,
       description: args.eventInput.description,
@@ -22,24 +23,21 @@ export const eventResolver = {
       creator: '5d2eec6c1ce6ff5068f424a2'
     })
     let createdEvent
-    return event.save()
-      .then(result => {
-        console.log(result)
-        createdEvent = transformEvent(result)
-        return User.findById('5d2eec6c1ce6ff5068f424a2')
-      })
-      .then(user => {
-        if(!user){
-          throw new Error('User not found.')
-        }
-        user.createdEvents.push(event)
-        return user.save()
-      })
-      .then(result => {
-        return createdEvent
-      })
-      .catch(err => {
-        throw err
-      })
+    try {
+      const result = await event.save()
+      createdEvent = transformEvent(result)
+      const creator = await User.findById('5d2eec6c1ce6ff5068f424a2')
+      
+      if(!creator){
+        throw new Error('User not found.')
+      }
+
+      creator.createdEvents.push(event)
+      await creator.save()
+      return createdEvent
+
+    } catch (error) {
+      throw error
+    }
   }
 }
