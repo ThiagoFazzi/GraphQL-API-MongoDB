@@ -6,6 +6,13 @@
 
 # GraphQL
 
+# Express-GraphQL
+
 # MongoDB
 
 # mongoose
+
+# JWT
+
+# BcryptJs
+
