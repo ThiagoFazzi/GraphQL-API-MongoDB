@@ -5,9 +5,12 @@ import graphqlHttp from 'express-graphql'
 import { startConnection } from './src/mongoose/connect'
 import { graphqlSchema } from './src/graphql/schema'
 import { graphqlResolvers } from './src/graphql/resolvers'
+import isAuth from './src/middleware/is-auth'
 
 const app = express()
 app.use(bodyParser.json())
+
+app.use(isAuth)
 
 app.use(
   '/graphql',
