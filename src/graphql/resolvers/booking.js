@@ -1,12 +1,11 @@
 import Booking from '../../mongoose/models/booking'
 import Event from '../../mongoose/models/event'
 import { transformBooking, transformEvent } from './merge'
+import { isAuth } from '../../helpers/isAuth'
 
 export const bookingResolver = {
   bookings: async (args, req) => {
-    if (!req.isAuth) {
-      throw new Error('Unauthenticated!')
-    }
+    isAuth(req.isAuth)
     try{
       const bookings = await Booking.find()
       return bookings.map(booking => {
@@ -17,9 +16,7 @@ export const bookingResolver = {
     }
   },
   createBookingEvent: async (args, req) => {
-    if (!req.isAuth) {
-      throw new Error('Unauthenticated!')
-    }
+    isAuth(req.isAuth)
     try {
       const fetchedEvent = await Event.findOne({ _id: args.eventId })
       const booking = new Booking({
@@ -33,9 +30,7 @@ export const bookingResolver = {
     }
   },
   cancelBooking: async (args, req) => {
-    if (!req.isAuth) {
-      throw new Error('Unauthenticated!')
-    }
+    isAuth(req.isAuth)
     try{
       const booking = await Booking.findById(args.bookingId).populate('event')
       const event = transformEvent(booking.event)
