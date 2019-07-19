@@ -1,6 +1,7 @@
 import Event from '../../mongoose/models/event'
 import User from '../../mongoose/models/user'
 import { transformEvent } from './merge'
+import { isAuth } from '../../helpers/isAuth'  
 
 export const eventResolver = {
   events: async () => {
@@ -15,9 +16,7 @@ export const eventResolver = {
   },
 
   createEvent: async (args, req) => {
-    if (!req.isAuth) {
-      throw new Error('Unauthenticated!')
-    }
+    isAuth(req.isAuth)
     const event = new Event({
       title: args.eventInput.title,
       description: args.eventInput.description,
