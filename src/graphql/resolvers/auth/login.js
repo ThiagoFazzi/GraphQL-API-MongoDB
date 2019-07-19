@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import User from '../../mongoose/models/user'
+import User from '../../../mongoose/models/user'
 import jwt from 'jsonwebtoken'
 
 export const login = {
