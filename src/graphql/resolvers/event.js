@@ -23,13 +23,13 @@ export const eventResolver = {
       description: args.eventInput.description,
       price: +args.eventInput.price,
       date: new Date(args.eventInput.date),
-      creator: '5d2eec6c1ce6ff5068f424a2'
+      creator: req.userId
     })
     let createdEvent
     try {
       const result = await event.save()
       createdEvent = transformEvent(result)
-      const creator = await User.findById('5d2eec6c1ce6ff5068f424a2')
+      const creator = await User.findById(req.userId)
       
       if(!creator){
         throw new Error('User not found.')
