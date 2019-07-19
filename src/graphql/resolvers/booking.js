@@ -3,7 +3,10 @@ import Event from '../../mongoose/models/event'
 import { transformBooking, transformEvent } from './merge'
 
 export const bookingResolver = {
-  bookings: async () => {
+  bookings: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error('Unauthenticated!')
+    }
     try{
       const bookings = await Booking.find()
       return bookings.map(booking => {
@@ -13,11 +16,14 @@ export const bookingResolver = {
       throw error
     }
   },
-  createBookingEvent: async args => {
+  createBookingEvent: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error('Unauthenticated!')
+    }
     try {
       const fetchedEvent = await Event.findOne({ _id: args.eventId })
       const booking = new Booking({
-        user: '5d2eec6c1ce6ff5068f424a2',
+        user: req.userId,
         event: fetchedEvent
       })
       const result = await booking.save()
@@ -26,7 +32,10 @@ export const bookingResolver = {
       throw error
     }
   },
-  cancelBooking: async args => {
+  cancelBooking: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error('Unauthenticated!')
+    }
     try{
       const booking = await Booking.findById(args.bookingId).populate('event')
       const event = transformEvent(booking.event)

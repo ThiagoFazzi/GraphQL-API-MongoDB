@@ -10,4 +10,10 @@ export const user =`
     email: String!
     password: String!
   }
+
+  type AuthData {
+    userId: String!
+    token: String!
+    tokenExpiration: Int!
+  }
 `
