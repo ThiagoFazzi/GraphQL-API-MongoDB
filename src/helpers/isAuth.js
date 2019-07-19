@@ -1,5 +1,5 @@
-export const isAuth = req => {
-  if (!req.isAuth) {
+export const isAuth = auth => {
+  if (!auth) {
     throw new Error('Unauthenticated!')
   }
 }
